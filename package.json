@@ -1,0 +1,14 @@
+{
+  "name": "modaltesting1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -- ./test/**/*.spec.js"
+  },
+  "author": "Acer Yang",
+  "license": "ISC",
+  "dependencies": {
+    "mocha": "^4.0.1"
+  }
+}
