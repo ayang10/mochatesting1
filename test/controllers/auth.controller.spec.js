@@ -1,5 +1,11 @@
 var assert = require('assert');
 var authController = require('../../controllers/auth.controller');
+var expect = require('chai').expect;
+var should = require('chai').should(); //if you don't execute it then you will just function back
+var chai = require("chai");
+var chaiAsPromised = require("chai-as-promised");
+chai.use(chaiAsPromised);
+chai.should();
 
 describe('AuthController', function(){
     beforeEach(function settingUpRoles(){
@@ -12,11 +18,13 @@ describe('AuthController', function(){
     describe('isAuthorized', function(){ //can use describe.only to run only this or describe.skip to skip if it's causing a build error
         it('Should return false if not authorized', function() {
             authController.setRoles(['user']);
-            assert.equal(false, authController.isAuthorized('admin'));
+            var isAuth = authController.isAuthorized('admin');
+            expect(isAuth).to.be.false;
         })
         it('Should return true if not authorized', function() {
             authController.setRoles(['user', 'admin']);
-            assert.equal(true, authController.isAuthorized('admin'));
+            var isAuth = authController.isAuthorized('admin');
+            isAuth.should.be.true;
         })
         it('should not allow a get if not authorized'); //can just drop these in here to remind yourself to go back and do
         it('should allow get if authorized'); //can just drop these in here to remind yourself to go back and do
@@ -32,4 +40,10 @@ describe('AuthController', function(){
             });
         })
     })
+    describe('isAuthorizedPromise', function(){
+        
+           it('Should return false if not authorized', function() {
+              return authController.isAuthorizedPromise('admin').should.eventually.be.false;
+           })
+       })
 });
